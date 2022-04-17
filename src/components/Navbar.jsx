@@ -4,13 +4,16 @@ import { HiMenuAlt4 } from 'react-icons/hi';
 import { AiOutlineClose } from 'react-icons/ai';
 
 import { TransactionContext } from '../context/TransactionContext';
+import { Link } from 'react-router-dom';
 
 import logo from '../../images/logo.png';
 
 const NavbarItem = ({ title, classProps }) => {
+    let link = title.toLowerCase();
+    if (title == "Home") link="";
     return (
         <li className={`mx-4 cursor-pointer ${classProps}`}>
-            {title}
+            <a href={"/" + link}>{title}</a>
         </li>
     );
 }
@@ -25,7 +28,7 @@ const Navbar = () => {
                 <a href="https://kingdom-swap.com/" target="_blank"><img src={logo} alt="logo" className="w-32 cursor-pointer" /></a>
             </div>
             <ul className="text-white md:flex hidden list-none flex-row justify-between items-center flex-initial">
-                {["Staking", "Exchange", "Real Estate"].map((item, index) => (
+                {["Home","Staking1", "Staking2", "Exchange", "Real Estate"].map((item, index) => (
                     <NavbarItem key={item + index} title={item} />
                 ))}
                 <button
@@ -50,7 +53,7 @@ const Navbar = () => {
                         <li className="text-xl w-full my-2">
                             <AiOutlineClose onClick={() => setToggleMenu(false)} />
                         </li>
-                        {["Staking", "Exchange", "Real Estate"].map((item, index) => (
+                        {["Home", "Staking1", "Staking2", "Exchange", "Real Estate"].map((item, index) => (
                             <NavbarItem key={item + index} title={item} classProps="my-2 text-lg"/>
                         ))}
                     </ul>
