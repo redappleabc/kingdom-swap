@@ -13,7 +13,7 @@ export default function Stanking1() {
                                 <div>
                                     <div className='staking-con-main-sec'>
                                         <span className='staking-main-text'>Total Staking Amount</span>
-                                        <span className='staking-sub-text'>10,000 STRG</span>
+                                        <span className='staking-sub-text'>10,000 KST</span>
                                     </div>
                                     <div className='staking-con-main-sec'>
                                         <span className='staking-main-text'>APY</span>
@@ -23,11 +23,11 @@ export default function Stanking1() {
                                 <div>
                                     <div className='staking-con-main-sec'>
                                         <span className='staking-main-text'>Your Staking Amount</span>
-                                        <span className='staking-sub-text'>100 STRG</span>
+                                        <span className='staking-sub-text'>100 KST</span>
                                     </div>
                                     <div className='staking-con-main-sec'>
                                         <span className='staking-main-text'>Your Reward Amount</span>
-                                        <span className='staking-sub-text'>100 STRG</span>
+                                        <span className='staking-sub-text'>100 KST</span>
                                     </div>
                                 </div>
                                 
