@@ -2,6 +2,34 @@ import React, { useState } from 'react';
 import cup1 from '../../images/staking/cup-gold.png';
 
 export default function Stanking1() {
+    const [stakeAmount, setStakeAmount] = useState("");
+    const [unStakeAmount, setUnStakeAmount] = useState("");
+    const [withdrawAmount, setWithdrawAmount] = useState("")
+
+    const stakeInput = (e) => {
+        setStakeAmount(e.target.value);
+    }
+
+    const confirmStaking = () => {
+        console.log(stakeAmount);
+    }
+
+    const unStakeInput = (e) => {
+        setUnStakeAmount(e.target.value);
+    }
+
+    const confirmUnStaking = () => {
+        console.log(unStakeAmount);
+    }
+
+    const withdrawInput = (e) => {
+        setWithdrawAmount(e.target.value);
+    }
+
+    const confirmWithdraw = () => {
+        console.log(withdrawAmount);
+    }
+    
     return(
     <>
         <div className="staking section-padding-top">
@@ -35,17 +63,17 @@ export default function Stanking1() {
                             <div className='sec3'>
                                 <div>
                                     <div>
-                                        <input type="number" name="" id="" placeholder='0'/>
-                                        <button className='staking-btn'>Stake</button>
+                                        <input type="number" onChange={stakeInput} name="stake" id="" placeholder='0'/>
+                                        <button className='staking-btn' onClick={confirmStaking}>Stake</button>
                                     </div>
                                     <div>
-                                        <input type="number" name="" id="" placeholder='0'/>
-                                        <button className='staking-btn'>Unstake</button>
+                                        <input type="number" onChange={unStakeInput} name="unstake" id="" placeholder='0'/>
+                                        <button className='staking-btn' onClick={confirmUnStaking}>Unstake</button>
                                     </div>
                                 </div>
                                 <div>
-                                    <input type="number" name="" id="" placeholder='0'/>
-                                    <button className='staking-btn'>Withdraw</button>
+                                    <input type="number" name="withdraw" onChange={withdrawInput} id="withdraw" placeholder='0'/>
+                                    <button className='staking-btn' onClick={confirmWithdraw}>Withdraw</button>
                                 </div>
                             
                             </div>
