@@ -27,6 +27,7 @@ export const TransactionProvider = ({ children }) => {
 
             if(accounts.length) {
                 setCurrentAccount(accounts[0]);
+                
             } else {
                 console.log('No accounts found');
             }
@@ -37,10 +38,21 @@ export const TransactionProvider = ({ children }) => {
         }
     }
 
-    const getCurrentAccount = () => {      
-        if (currentAccount == '') return 'Connect Wallet';
+    const disconnectWallet = async () => {
+        await ethereum.request({
+            method: "",
+            params: [
+              {
+                eth_accounts: {}
+              }
+            ]
+          });
+    }
 
-        return currentAccount.slice(0,2) + "..." + currentAccount.slice(38).toUpperCase();
+    const getCurrentAccount = () => {      
+        if (currentAccount == '') return '';
+
+        return currentAccount.slice(0,5) + "..." + currentAccount.slice(38).toUpperCase();
     }
 
     const connectWallet = async () => {
@@ -48,7 +60,8 @@ export const TransactionProvider = ({ children }) => {
             if(!ethereum) return alert("Please install metamask");
             const accounts = await ethereum.request({method: 'eth_requestAccounts'});
 
-            setCurrentAccount(accounts[0]); 
+            await setCurrentAccount(accounts[0]); 
+            console.log(currentAccount);
         } catch (error) {
             console.log(error);
 
@@ -85,7 +98,7 @@ export const TransactionProvider = ({ children }) => {
     
 
     return (
-        <TransactionContext.Provider value={{ connectWallet, currentAccount, sendTransaction, amount, setAmount, getCurrentAccount }}>
+        <TransactionContext.Provider value={{ connectWallet, currentAccount, sendTransaction, amount, setAmount, getCurrentAccount, checkIfWalletIsConnected, disconnectWallet }}>
             { children }
         </TransactionContext.Provider>
     )

@@ -20,7 +20,28 @@ const NavbarItem = ({ title, classProps }) => {
 
 const Navbar = () => {
     const { getCurrentAccount, connectWallet } = useContext(TransactionContext);
+    const [ walletAddress, setWalletAddress ] = useState("Connect Wallet")
     const [toggleMenu, setToggleMenu] = useState(false);
+    
+    const toggleWallet = async () => {
+        if (walletAddress == "Connect Wallet") {
+            await connectWallet();
+            setWalletAddress(getCurrentAccount());
+        }
+        else {
+            setWalletAddress("Connect Wallet");
+        }
+    }
+
+
+    // const walletBtn = () => {
+    //     if (walletAddress == "Connect Wallet") {
+    //         return getCurrentAccount();
+    //     }
+    //     else {
+    //         return walletAddress;
+    //     }
+    // }
 
     return (
         <nav className="w-full flex md:justify-center justify-between items-center p-4">
@@ -33,8 +54,10 @@ const Navbar = () => {
                 ))}
                 <button
                         type="button"
-                        onClick={connectWallet}
-                        className="flex flex-row justify-center items-center my-5 bg-[#F7BE2F] p-3 rounded-full cursor-pointer hover:bg-[#BB6E01]"
+                        onClick={toggleWallet}
+                        onMouseOver={() => {if(walletAddress != "Connect Wallet") setWalletAddress("Disconnect")}}
+                        onMouseOut={() => {if(walletAddress != "Connect Wallet") setWalletAddress(getCurrentAccount())}}
+                        className="flex flex-row justify-center items-center my-5 bg-[#F7BE2F] p-3 rounded-full cursor-pointer hover:bg-[#BB6E01] wallet-btn"
                     >
                         <p className="text-black text-base font-semibold">
                             {getCurrentAccount()}

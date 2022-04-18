@@ -1,17 +1,46 @@
-import React, { useState } from 'react';
-import cup1 from '../../images/staking/cup-gold.png';
+import React, { useState, useEffect, useContext } from 'react';
+import { TransactionContext } from '../context/TransactionContext';
+import { contractABI, contractAddress } from '../utils/constants';
+
+import { ethers } from 'ethers';
+// import cup1 from '../../images/staking/cup-gold.png';
+
+const {ethereum} = window;
+
+const getEthereumContract = () => {
+    const provider = new ethers.providers.Web3Provider(ethereum);
+    const signer = provider.getSigner();
+    const transactionContract = new ethers.Contract(contractAddress, contractABI, signer);
+    return transactionContract;
+}
+let stakingContract = {};
 
 export default function Stanking1() {
+    const {getCurrentAccount, disconnectWallet} = useContext(TransactionContext);
     const [stakeAmount, setStakeAmount] = useState("");
     const [unStakeAmount, setUnStakeAmount] = useState("");
-    const [withdrawAmount, setWithdrawAmount] = useState("")
+    const [withdrawAmount, setWithdrawAmount] = useState("");
+
+    useEffect( () => {
+        stakingContract = getEthereumContract();
+        console.log(stakingContract)
+    },[])
 
     const stakeInput = (e) => {
         setStakeAmount(e.target.value);
     }
 
     const confirmStaking = () => {
-        console.log(stakeAmount);
+        // console.log(stakingContract);
+        // stakingContract.methods.getAPY().call((err, res) => {
+        //     if (err) { 
+        //         alert("error")
+        //         return;
+        //     }
+        //     else {
+        //         console.log(res);
+        //     }
+        // })
     }
 
     const unStakeInput = (e) => {

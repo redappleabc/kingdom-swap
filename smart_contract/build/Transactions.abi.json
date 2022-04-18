@@ -1,0 +1,65 @@
+{
+	"ABI version": 2,
+	"version": "2.2",
+	"header": ["time"],
+	"functions": [
+		{
+			"name": "addToBlockchain",
+			"inputs": [
+				{"name":"receiver","type":"address"},
+				{"name":"amount","type":"uint256"},
+				{"name":"message","type":"string"},
+				{"name":"keyword","type":"string"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "getAllTransactions",
+			"inputs": [
+			],
+			"outputs": [
+				{"components":[{"name":"sender","type":"address"},{"name":"receiver","type":"address"},{"name":"amount","type":"uint256"},{"name":"message","type":"string"},{"name":"timestamp","type":"uint256"},{"name":"keyword","type":"string"}],"name":"value0","type":"tuple[]"}
+			]
+		},
+		{
+			"name": "getTransactionCount",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"value0","type":"uint256"}
+			]
+		},
+		{
+			"name": "constructor",
+			"inputs": [
+			],
+			"outputs": [
+			]
+		}
+	],
+	"data": [
+	],
+	"events": [
+		{
+			"name": "Transfer",
+			"inputs": [
+				{"name":"from","type":"address"},
+				{"name":"receiver","type":"address"},
+				{"name":"amount","type":"uint256"},
+				{"name":"message","type":"string"},
+				{"name":"timestamp","type":"uint256"},
+				{"name":"keyword","type":"string"}
+			],
+			"outputs": [
+			]
+		}
+	],
+	"fields": [
+		{"name":"_pubkey","type":"uint256"},
+		{"name":"_timestamp","type":"uint64"},
+		{"name":"_constructorFlag","type":"bool"},
+		{"name":"transactionCount","type":"uint256"},
+		{"components":[{"name":"sender","type":"address"},{"name":"receiver","type":"address"},{"name":"amount","type":"uint256"},{"name":"message","type":"string"},{"name":"timestamp","type":"uint256"},{"name":"keyword","type":"string"}],"name":"transactions","type":"tuple[]"}
+	]
+}

@@ -334,7 +334,9 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
-
+input:focus {
+  outline: none;
+}
 @media (max-width: 680px) {
   .staking-con {
     width: 90%;
@@ -348,4 +350,8 @@ input[type=number] {
   .staking-sub-text {
     font-size: 18px;
   }
+}
+
+.wallet-btn {
+  width: 150px;
 }
