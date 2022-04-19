@@ -42,7 +42,7 @@ export default function Stanking1() {
     
   
     const fetchData = async () => {
-        const apy = ((await stakingContract.getAPY())* 100).toString()
+        const apy = (await stakingContract.getAPY()).toString()
         const stakingBalance = ethers.utils.formatEther(await stakingContract.stakingBalance(currentAccount))
         const totalStakingBalance = ethers.utils.formatEther(await stakingContract.stakingBalance(currentAccount))
         const rewardsAmount = ethers.utils.formatEther(await stakingContract.getRewards());
@@ -51,22 +51,25 @@ export default function Stanking1() {
         setTotalStakedBalance(totalStakingBalance)
         setRewards(rewardsAmount)
     }
+
+    stakingContract.on("Staked", (address, amount) => {
+        fetchData();
+    });
+
+    stakingContract.on("UnStaked", (address, amount) => {
+        fetchData();
+    });
+
+    stakingContract.on("Withdrawed", (address, amount) => {
+        fetchData();
+    });
+    
     useEffect(() => {
         stakingContract = getStakingContract();
         tokenContract = getTokenContract();
         if(currentAccount !== ""){
             fetchData();
-            stakingContract.on("Staked", (address, amount) => {
-                fetchData();
-            });
-        
-            stakingContract.on("UnStaked", (address, amount) => {
-                fetchData();
-            });
-        
-            stakingContract.on("Withdrawed", (address, amount) => {
-                fetchData();
-            });
+            
         }
     },[currentAccount])
 
