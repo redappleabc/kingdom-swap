@@ -19,29 +19,22 @@ const NavbarItem = ({ title, classProps }) => {
 }
 
 const Navbar = () => {
-    const { getCurrentAccount, connectWallet, currentAccount } = useContext(TransactionContext);
-    const [ walletAddress, setWalletAddress ] = useState("Connect Wallet")
+    const { connectWallet, getCurrentAccount } = useContext(TransactionContext);
     const [toggleMenu, setToggleMenu] = useState(false);
-    
-    const toggleWallet = async () => {
-        if (walletAddress == "Connect Wallet") {
-            await connectWallet();
-            setWalletAddress(getCurrentAccount());
-        }
-        else {
-            setWalletAddress("Connect Wallet");
-        }
+
+    const [walletAddress, setWalletAddress] = useState("Connect Wallet");
+
+    const putWalletAddress = () => {
+        if (walletAddress == "") return getCurrentAccount();
+        else return walletAddress;
     }
-
-
-    // const walletBtn = () => {
-    //     if (walletAddress == "Connect Wallet") {
-    //         return getCurrentAccount();
-    //     }
-    //     else {
-    //         return walletAddress;
-    //     }
-    // }
+    const toggleWallet = async () => {
+        if (walletAddress == "Connect Wallet" ) {
+            await connectWallet();
+            setWalletAddress("");
+        }
+        else {setWalletAddress("Connect Wallet")}
+    }
 
     return (
         <nav className="w-full flex md:justify-center justify-between items-center p-4">
@@ -55,14 +48,15 @@ const Navbar = () => {
                 <button
                         type="button"
                         onClick={toggleWallet}
-                        onMouseOver={() => {if(walletAddress != "Connect Wallet") setWalletAddress("Disconnect")}}
-                        onMouseOut={() => {if(walletAddress != "Connect Wallet") setWalletAddress(getCurrentAccount())}}
+                        onMouseOver={() => {if (walletAddress != "Connect Wallet") setWalletAddress("Disconnect")}}
+                        onMouseOut={() => {if (walletAddress != "Connect Wallet") setWalletAddress(""); else setWalletAddress("Connect Wallet")}}
                         className="flex flex-row justify-center items-center my-5 bg-[#F7BE2F] p-3 rounded-full cursor-pointer hover:bg-[#BB6E01] wallet-btn"
                     >
                         <p className="text-black text-base font-semibold">
-                            {getCurrentAccount()}
+                            {putWalletAddress()}
                         </p>
                     </button>
+                    
             </ul>
             <div className='flex relative'>
                 {toggleMenu

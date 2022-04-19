@@ -16,7 +16,6 @@ export const TransactionProvider = ({ children }) => {
 
             if(accounts.length) {
                 setCurrentAccount(accounts[0]);
-                
             } else {
                 console.log('No accounts found');
             }
@@ -61,7 +60,7 @@ export const TransactionProvider = ({ children }) => {
     
 
     return (
-        <TransactionContext.Provider value={{ connectWallet, currentAccount,  getCurrentAccount, checkIfWalletIsConnected }}>
+        <TransactionContext.Provider value={{ connectWallet, currentAccount, setCurrentAccount,  getCurrentAccount, checkIfWalletIsConnected }}>
             { children }
         </TransactionContext.Provider>
     )
