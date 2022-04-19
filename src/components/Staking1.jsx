@@ -42,11 +42,14 @@ export default function Stanking1() {
 
     const confirmStaking = async () => {
 
+
+        let convertToWei = window.web3.utils.toWei(stakeAmount, 'Ether');
+        console.log(convertToWei)
         await tokenContract.approve(stakingContractAddress, GASS_LIMIT).then((res) =>{
             console.log(res);
         })
 
-        let convertToWei = window.web3.utils.toWei(stakeAmount, 'Ether');
+        
 
         await stakingContract.stakeTokens(convertToWei, {
             gasLimit: GASS_LIMIT,
@@ -104,7 +107,7 @@ export default function Stanking1() {
                                     </div>
                                     <div className='staking-con-main-sec'>
                                         <span className='staking-main-text'>Your Reward Amount</span>
-                                        <span className='staking-sub-text'>100 KST</span>
+                                        <span className='staking-sub-text'>100 TST</span>
                                     </div>
                                 </div>
                                 
@@ -121,7 +124,7 @@ export default function Stanking1() {
                                     </div>
                                 </div>
                                 <div>
-                                    <input type="number" name="withdraw" onChange={withdrawInput} id="withdraw" placeholder='0'/>
+                                    {/* <input type="number" name="withdraw" onChange={withdrawInput} id="withdraw" placeholder='0'/> */}
                                     <button className='staking-btn' onClick={confirmWithdraw}>Withdraw</button>
                                 </div>
                             
