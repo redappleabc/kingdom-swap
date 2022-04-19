@@ -1,20 +1,20 @@
 //SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract LPFarming is Ownable {
     //contract name
     string public name = "LP Farming";
 
-    IERC20 reflectionToken;
+    ERC20 public reflectionToken;
 
-    IERC20 farmingToken;
+    ERC20 public farmingToken;
 
 
     uint256 public totalStaked;
 
-    uint256 public annualTotalSupply = 1000;
+    uint256 public annualTotalSupply;
 
     mapping(address => uint256) public stakingBalance;
 
@@ -24,9 +24,15 @@ contract LPFarming is Ownable {
 
     mapping(address => uint) public latestStakingTime;
 
-    constructor(IERC20 _reflectionTokenAddress, IERC20 _farmingTokenAddress) payable {
+    event Staked( address indexed ,uint256 _amount);
+    event UnStaked( address indexed ,uint256 _amount);
+    event Withdrawed( address indexed ,uint256 _amount);
+
+
+    constructor(ERC20 _reflectionTokenAddress, ERC20 _farmingTokenAddress) payable {
         reflectionToken = _reflectionTokenAddress;
-        farmingToken = _farmingTokenAddress
+        farmingToken = _farmingTokenAddress;
+        annualTotalSupply = uint256(1000 * (10 ** reflectionToken.decimals()));
     }
 
     //stake tokens function
@@ -43,6 +49,7 @@ contract LPFarming is Ownable {
         //updating staking status
         isStakingAtm[msg.sender] = true;
         latestStakingTime[msg.sender] = block.timestamp;
+        emit Staked(msg.sender, _amount);
     }
 
 
@@ -65,6 +72,7 @@ contract LPFarming is Ownable {
 
         //updating staking status
         isStakingAtm[msg.sender] = false;
+        emit UnStaked(msg.sender, _amount);
     }
 
     function claimRewards() public {
@@ -76,10 +84,14 @@ contract LPFarming is Ownable {
         rewardsBalance[msg.sender] = 0;
         reflectionToken.transfer(msg.sender, rewards);
         latestStakingTime[msg.sender] = block.timestamp;
+        emit Withdrawed(msg.sender, rewards);
     }
 
     function getAPY() public view returns(uint256) {
-        return annualTotalSupply/totalStaked;
+        if(totalStaked == 0){
+            return uint256(0);
+        }
+        return uint256(annualTotalSupply/totalStaked * 100);
     }
 
     function getCurrentRewards() public view returns(uint256) {

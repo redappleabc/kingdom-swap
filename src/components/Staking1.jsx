@@ -3,6 +3,7 @@ import { TransactionContext } from '../context/TransactionContext';
 import { stakingContractABI, stakingContractAddress, tokenContractABI, tokenContractAddress } from '../utils/constants';
 
 import { ethers } from 'ethers';
+
 // import cup1 from '../../images/staking/cup-gold.png';
 
 const {ethereum} = window;
@@ -26,60 +27,94 @@ let tokenContract = {};
 
 export default function Stanking1() {
     const {currentAccount} = useContext(TransactionContext);
+    
     const [stakeAmount, setStakeAmount] = useState("");
     const [unStakeAmount, setUnStakeAmount] = useState("");
-    const [withdrawAmount, setWithdrawAmount] = useState("");
+
+
+    const [apy, setApy] = useState("");
+    const [stakedBalance, setStakedBalance] = useState("");
+    const [totalStakedBalance, setTotalStakedBalance] = useState("");
+    const [rewards, setRewards] = useState("");
+
     const GASS_LIMIT = 285000;
 
-    useEffect( () => {
+    
+  
+    const fetchData = async () => {
+        const apy = ((await stakingContract.getAPY())* 100).toString()
+        const stakingBalance = ethers.utils.formatEther(await stakingContract.stakingBalance(currentAccount))
+        const totalStakingBalance = ethers.utils.formatEther(await stakingContract.stakingBalance(currentAccount))
+        const rewardsAmount = ethers.utils.formatEther(await stakingContract.getRewards());
+        setApy(apy);
+        setStakedBalance(stakingBalance)
+        setTotalStakedBalance(totalStakingBalance)
+        setRewards(rewardsAmount)
+    }
+    useEffect(() => {
         stakingContract = getStakingContract();
         tokenContract = getTokenContract();
-    },[])
+        if(currentAccount !== ""){
+            fetchData();
+            stakingContract.on("Staked", (address, amount) => {
+                fetchData();
+            });
+        
+            stakingContract.on("UnStaked", (address, amount) => {
+                fetchData();
+            });
+        
+            stakingContract.on("Withdrawed", (address, amount) => {
+                fetchData();
+            });
+        }
+    },[currentAccount])
 
-    const stakeInput = (e) => {
-        setStakeAmount(e.target.value);
-    }
+   
 
     const confirmStaking = async () => {
 
+        let convertToWei = ethers.utils.parseEther(stakeAmount);
+        console.log(convertToWei.toString())
 
-        let convertToWei = window.web3.utils.toWei(stakeAmount, 'Ether');
-        console.log(convertToWei)
-        await tokenContract.approve(stakingContractAddress, GASS_LIMIT).then((res) =>{
-            console.log(res);
+
+        await tokenContract.approve(stakingContractAddress, convertToWei).then((res) =>{
+            console.log(stakingContractAddress);
         })
 
         
-
         await stakingContract.stakeTokens(convertToWei, {
             gasLimit: GASS_LIMIT,
           })
           .then((res) => {
             console.log(res);
         })
-
         // await stakingContract.getAPY().then((res) => {
         //     console.log(res._hex)
         // })
     }
 
-    const unStakeInput = (e) => {
-        setUnStakeAmount(e.target.value);
-    }
 
     const confirmUnStaking = async () => {
-        await tokenContract.balanceOf(currentAccount).then((res) =>{
+        let convertToWei = ethers.utils.parseEther(unStakeAmount);
+
+        await stakingContract.unstakeTokens(convertToWei, {
+            gasLimit: GASS_LIMIT,
+          })
+          .then((res) => {
             console.log(res);
         })
-        console.log(unStakeAmount);
     }
 
-    const withdrawInput = (e) => {
-        setWithdrawAmount(e.target.value);
-    }
+   
 
-    const confirmWithdraw = () => {
-        console.log(withdrawAmount);
+    const confirmWithdraw = async () => {
+        await stakingContract.claimRewards({
+            gasLimit: GASS_LIMIT,
+          })
+          .then((res) => {
+            console.log(res);
+        })
     }
     
     return(
@@ -93,21 +128,21 @@ export default function Stanking1() {
                                 <div>
                                     <div className='staking-con-main-sec'>
                                         <span className='staking-main-text'>Total Staking Amount</span>
-                                        <span className='staking-sub-text'>10,000 KST</span>
+                                        <span className='staking-sub-text'>{totalStakedBalance} STRG</span>
                                     </div>
                                     <div className='staking-con-main-sec'>
                                         <span className='staking-main-text'>APY</span>
-                                        <span className='staking-sub-text'>12%</span>
+                                        <span className='staking-sub-text'>{apy}%</span>
                                     </div>
                                 </div>
                                 <div>
                                     <div className='staking-con-main-sec'>
                                         <span className='staking-main-text'>Your Staking Amount</span>
-                                        <span className='staking-sub-text'>100 KST</span>
+                                        <span className='staking-sub-text'>{stakedBalance} STRG</span>
                                     </div>
                                     <div className='staking-con-main-sec'>
                                         <span className='staking-main-text'>Your Reward Amount</span>
-                                        <span className='staking-sub-text'>100 TST</span>
+                                        <span className='staking-sub-text'>{rewards} KST</span>
                                     </div>
                                 </div>
                                 
@@ -115,11 +150,11 @@ export default function Stanking1() {
                             <div className='sec3'>
                                 <div>
                                     <div>
-                                        <input type="number" onChange={stakeInput} name="stake" id="" placeholder='0'/>
+                                        <input type="number" value={stakeAmount}  onChange={(e)=>{setStakeAmount(e.target.value)}} name="stake" id="" placeholder='0'/>
                                         <button className='staking-btn' onClick={confirmStaking}>Stake</button>
                                     </div>
                                     <div>
-                                        <input type="number" onChange={unStakeInput} name="unstake" id="" placeholder='0'/>
+                                        <input type="number" value={unStakeAmount } onChange={(e)=>{ setUnStakeAmount(e.target.value)}} name="unstake" id="" placeholder='0'/>
                                         <button className='staking-btn' onClick={confirmUnStaking}>Unstake</button>
                                     </div>
                                 </div>

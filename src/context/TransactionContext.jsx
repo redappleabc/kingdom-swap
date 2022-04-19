@@ -12,13 +12,13 @@ export const TransactionProvider = ({ children }) => {
         try {
             if(!ethereum) return alert("Please install metamask");
 
-            const accounts = await ethereum.request({method: 'eth_accounts'});
+            // const accounts = await ethereum.request({method: 'eth_accounts'});
 
-            if(accounts.length) {
-                setCurrentAccount(accounts[0]);
-            } else {
-                console.log('No accounts found');
-            }
+            // if(accounts.length) {
+            //     setCurrentAccount(accounts[0]);
+            // } else {
+            //     console.log('No accounts found');
+            // }
         } catch (error) {
             console.log(error);
 
