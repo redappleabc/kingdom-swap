@@ -52,24 +52,24 @@ export default function Stanking1() {
         setRewards(rewardsAmount)
     }
 
-    stakingContract.on("Staked", (address, amount) => {
-        fetchData();
-    });
-
-    stakingContract.on("UnStaked", (address, amount) => {
-        fetchData();
-    });
-
-    stakingContract.on("Withdrawed", (address, amount) => {
-        fetchData();
-    });
-    
     useEffect(() => {
         stakingContract = getStakingContract();
         tokenContract = getTokenContract();
+        stakingContract.on("Staked", (address, amount) => {
+            fetchData();
+        });
+    
+        stakingContract.on("UnStaked", (address, amount) => {
+            fetchData();
+        });
+    
+        stakingContract.on("Withdrawed", (address, amount) => {
+            fetchData();
+        });
+
+        
         if(currentAccount !== ""){
             fetchData();
-            
         }
     },[currentAccount])
 
