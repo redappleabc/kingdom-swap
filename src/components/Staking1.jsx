@@ -54,6 +54,9 @@ export default function Stanking1() {
         setStakedBalance(stakingBalance)
         setTotalStakedBalance(totalStakingBalance)
         setRewards(rewardsAmount)
+        setStakeAmount("")
+        setUnStakeAmount("")
+
     }
 
     useEffect(() => {
@@ -97,6 +100,7 @@ export default function Stanking1() {
           .then((res) => {
             console.log(res);
         })
+
         // await stakingContract.getAPY().then((res) => {
         //     console.log(res._hex)
         // })
