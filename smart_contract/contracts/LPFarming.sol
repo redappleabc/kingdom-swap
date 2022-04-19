@@ -87,17 +87,14 @@ contract LPFarming is Ownable {
         emit Withdrawed(msg.sender, rewards);
     }
 
-    function getAPY() public view returns(uint256) {
+
+    function getCurrentRewards() public view returns(uint256) {
         if(totalStaked == 0){
             return uint256(0);
         }
-        return uint256(annualTotalSupply/totalStaked * 100);
-    }
-
-    function getCurrentRewards() public view returns(uint256) {
         uint256 balance = stakingBalance[msg.sender];
         uint256 passedTime = block.timestamp - latestStakingTime[msg.sender];
-        uint256 rewards = balance * getAPY() * passedTime / uint256(365 days);
+        uint256 rewards = balance * annualTotalSupply / totalStaked * passedTime / uint256(365 days) ;
         return rewards;
     }
 

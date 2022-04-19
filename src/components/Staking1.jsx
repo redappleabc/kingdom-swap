@@ -42,11 +42,13 @@ export default function Stanking1() {
     
   
     const fetchData = async () => {
-        const apy = (await stakingContract.getAPY()).toString()
-        const stakingBalance = ethers.utils.formatEther(await stakingContract.stakingBalance(currentAccount))
-        const totalStakingBalance = ethers.utils.formatEther(await stakingContract.stakingBalance(currentAccount))
+        const stakingBalance = ethers.utils.formatEther(await stakingContract.stakingBalance(currentAccount));
+        const totalStakingBalance = ethers.utils.formatEther(await stakingContract.totalStaked());
         const rewardsAmount = ethers.utils.formatEther(await stakingContract.getRewards());
-        setApy(apy);
+        if(totalStakedBalance>0)
+            setApy(stakingBalance/totalStakedBalance*100);
+        else
+            setApy(0)
         setStakedBalance(stakingBalance)
         setTotalStakedBalance(totalStakingBalance)
         setRewards(rewardsAmount)
@@ -67,7 +69,7 @@ export default function Stanking1() {
             fetchData();
         });
 
-        
+
         if(currentAccount !== ""){
             fetchData();
         }
