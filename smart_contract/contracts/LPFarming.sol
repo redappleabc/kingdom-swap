@@ -37,7 +37,7 @@ contract LPFarming is Ownable {
         farmingToken.transferFrom(msg.sender, address(this), _amount);
         totalStaked = totalStaked + _amount;
 
-        rewardsBalance[msg.sender] += getRewards();
+        rewardsBalance[msg.sender] += getCurrentRewards();
         //updating staking balance for user by mapping
         stakingBalance[msg.sender] = stakingBalance[msg.sender] + _amount;
         //updating staking status
@@ -59,7 +59,7 @@ contract LPFarming is Ownable {
         //reseting users staking balance 
         stakingBalance[msg.sender] = balance - _amount;
 
-        rewardsBalance[msg.sender] += getRewards();
+        rewardsBalance[msg.sender] += getCurrentRewards();
 
         latestStakingTime[msg.sender] = block.timestamp;
 
@@ -72,7 +72,7 @@ contract LPFarming is Ownable {
 
         require(balance > 0);
 
-        uint256 rewards = rewardsBalance[msg.sender] + getRewards();
+        uint256 rewards = rewardsBalance[msg.sender] + getCurrentRewards();
         rewardsBalance[msg.sender] = 0;
         reflectionToken.transfer(msg.sender, rewards);
         latestStakingTime[msg.sender] = block.timestamp;
@@ -82,11 +82,15 @@ contract LPFarming is Ownable {
         return annualTotalSupply/totalStaked;
     }
 
-    function getRewards() public view returns(uint256) {
+    function getCurrentRewards() public view returns(uint256) {
         uint256 balance = stakingBalance[msg.sender];
         uint256 passedTime = block.timestamp - latestStakingTime[msg.sender];
         uint256 rewards = balance * getAPY() * passedTime / uint256(365 days);
         return rewards;
+    }
+
+    function getRewards() public view returns(uint256) {
+        return rewardsBalance[msg.sender] + getCurrentRewards();
     }
 
 }
