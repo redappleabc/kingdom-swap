@@ -73,7 +73,7 @@ contract LPFarming is Ownable {
         require(balance > 0);
 
         uint256 rewards = rewardsBalance[msg.sender] + getRewards();
-
+        rewardsBalance[msg.sender] = 0;
         reflectionToken.transfer(msg.sender, rewards);
         latestStakingTime[msg.sender] = block.timestamp;
     }
