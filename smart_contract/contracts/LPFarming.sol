@@ -3,24 +3,30 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-contract ReflectionTokenStaking is Ownable {
+contract LPFarming is Ownable {
     //contract name
-    string public name = "STRGToken STAKING";
+    string public name = "LP Farming";
 
     IERC20 reflectionToken;
 
+    IERC20 farmingToken;
+
+
     uint256 public totalStaked;
 
-    uint256 public annualTotalSupply = 125;
+    uint256 public annualTotalSupply = 1000;
 
     mapping(address => uint256) public stakingBalance;
+
+    mapping(address => uint256) public rewardsBalance;
 
     mapping(address => bool) public isStakingAtm;
 
     mapping(address => uint) public latestStakingTime;
 
-    constructor(IERC20 _tokenAddress) payable {
-        reflectionToken = _tokenAddress;
+    constructor(IERC20 _reflectionTokenAddress, IERC20 _farmingTokenAddress) payable {
+        reflectionToken = _reflectionTokenAddress;
+        farmingToken = _farmingTokenAddress
     }
 
     //stake tokens function
@@ -28,8 +34,10 @@ contract ReflectionTokenStaking is Ownable {
         //must be more than 0
         require(_amount > 0);
         //User adding test tokens
-        reflectionToken.transferFrom(msg.sender, address(this), _amount);
+        farmingToken.transferFrom(msg.sender, address(this), _amount);
         totalStaked = totalStaked + _amount;
+
+        rewardsBalance[msg.sender] += getRewards();
         //updating staking balance for user by mapping
         stakingBalance[msg.sender] = stakingBalance[msg.sender] + _amount;
         //updating staking status
@@ -39,17 +47,22 @@ contract ReflectionTokenStaking is Ownable {
 
 
     //unstake tokens function
-    function unstakeTokens() public {
+    function unstakeTokens(uint256 _amount) public {
         //get staking balance for user
         uint256 balance = stakingBalance[msg.sender];
         //amount should be more than 0
-        require(balance > 0);
-        uint256 rewards = getRewards();
+        require(balance >= _amount);
+       
         //transfer staked tokens back to user
-        reflectionToken.transfer(msg.sender, balance + rewards);
-        totalStaked = totalStaked - balance;
-        //reseting users staking balance
-        stakingBalance[msg.sender] = 0;
+        farmingToken.transfer(msg.sender, _amount );
+        totalStaked = totalStaked - _amount;
+        //reseting users staking balance 
+        stakingBalance[msg.sender] = balance - _amount;
+
+        rewardsBalance[msg.sender] += getRewards();
+
+        latestStakingTime[msg.sender] = block.timestamp;
+
         //updating staking status
         isStakingAtm[msg.sender] = false;
     }
@@ -59,14 +72,14 @@ contract ReflectionTokenStaking is Ownable {
 
         require(balance > 0);
 
-        uint256 rewards = getRewards();
+        uint256 rewards = rewardsBalance[msg.sender] + getRewards();
 
         reflectionToken.transfer(msg.sender, rewards);
         latestStakingTime[msg.sender] = block.timestamp;
     }
 
     function getAPY() public view returns(uint256) {
-        return annualTotalSupply;
+        return annualTotalSupply/totalStaked;
     }
 
     function getRewards() public view returns(uint256) {
