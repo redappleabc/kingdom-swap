@@ -19,7 +19,7 @@ const NavbarItem = ({ title, classProps }) => {
 }
 
 const Navbar = () => {
-    const { getCurrentAccount, connectWallet } = useContext(TransactionContext);
+    const { getCurrentAccount, connectWallet, currentAccount } = useContext(TransactionContext);
     const [ walletAddress, setWalletAddress ] = useState("Connect Wallet")
     const [toggleMenu, setToggleMenu] = useState(false);
     

@@ -1,45 +1,62 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { TransactionContext } from '../context/TransactionContext';
-import { contractABI, contractAddress } from '../utils/constants';
+import { stakingContractABI, stakingContractAddress, tokenContractABI, tokenContractAddress } from '../utils/constants';
 
 import { ethers } from 'ethers';
 // import cup1 from '../../images/staking/cup-gold.png';
 
 const {ethereum} = window;
 
-const getEthereumContract = () => {
+const getStakingContract = () => {
     const provider = new ethers.providers.Web3Provider(ethereum);
     const signer = provider.getSigner();
-    const transactionContract = new ethers.Contract(contractAddress, contractABI, signer);
+    const transactionContract = new ethers.Contract(stakingContractAddress, stakingContractABI, signer);
     return transactionContract;
 }
+
+const getTokenContract = () => {
+    const provider = new ethers.providers.Web3Provider(ethereum);
+    const signer = provider.getSigner();
+    const transactionContract = new ethers.Contract(tokenContractAddress, tokenContractABI, signer);
+    return transactionContract;
+}
+
 let stakingContract = {};
+let tokenContract = {};
 
 export default function Stanking1() {
-    const {getCurrentAccount, disconnectWallet} = useContext(TransactionContext);
+    const {currentAccount} = useContext(TransactionContext);
     const [stakeAmount, setStakeAmount] = useState("");
     const [unStakeAmount, setUnStakeAmount] = useState("");
     const [withdrawAmount, setWithdrawAmount] = useState("");
+    const GASS_LIMIT = 285000;
 
     useEffect( () => {
-        stakingContract = getEthereumContract();
-        console.log(stakingContract)
+        stakingContract = getStakingContract();
+        tokenContract = getTokenContract();
     },[])
 
     const stakeInput = (e) => {
         setStakeAmount(e.target.value);
     }
 
-    const confirmStaking = () => {
-        // console.log(stakingContract);
-        // stakingContract.methods.getAPY().call((err, res) => {
-        //     if (err) { 
-        //         alert("error")
-        //         return;
-        //     }
-        //     else {
-        //         console.log(res);
-        //     }
+    const confirmStaking = async () => {
+
+        await tokenContract.approve(stakingContractAddress, GASS_LIMIT).then((res) =>{
+            console.log(res);
+        })
+
+        let convertToWei = window.web3.utils.toWei(stakeAmount, 'Ether');
+
+        await stakingContract.stakeTokens(convertToWei, {
+            gasLimit: GASS_LIMIT,
+          })
+          .then((res) => {
+            console.log(res);
+        })
+
+        // await stakingContract.getAPY().then((res) => {
+        //     console.log(res._hex)
         // })
     }
 
@@ -47,7 +64,10 @@ export default function Stanking1() {
         setUnStakeAmount(e.target.value);
     }
 
-    const confirmUnStaking = () => {
+    const confirmUnStaking = async () => {
+        await tokenContract.balanceOf(currentAccount).then((res) =>{
+            console.log(res);
+        })
         console.log(unStakeAmount);
     }
 
