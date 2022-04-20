@@ -41,9 +41,10 @@ contract LPFarming is Ownable {
         require(_amount > 0);
         //User adding test tokens
         farmingToken.transferFrom(msg.sender, address(this), _amount);
-        totalStaked = totalStaked + _amount;
 
         rewardsBalance[msg.sender] += getCurrentRewards();
+        totalStaked = totalStaked + _amount;
+
         //updating staking balance for user by mapping
         stakingBalance[msg.sender] = stakingBalance[msg.sender] + _amount;
         //updating staking status
@@ -62,11 +63,12 @@ contract LPFarming is Ownable {
        
         //transfer staked tokens back to user
         farmingToken.transfer(msg.sender, _amount );
+        rewardsBalance[msg.sender] += getCurrentRewards();
+
         totalStaked = totalStaked - _amount;
         //reseting users staking balance 
         stakingBalance[msg.sender] = balance - _amount;
 
-        rewardsBalance[msg.sender] += getCurrentRewards();
 
         latestStakingTime[msg.sender] = block.timestamp;
 
