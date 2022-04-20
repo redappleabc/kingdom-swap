@@ -18,8 +18,8 @@ const App = () => {
   return (
     <div className="min-h-screen">
       <div className="bg-welcome">
-        <Navbar />
         <Router>
+          <Navbar />
           <Routes>
             <Route exact path='/' element={< Home />}></Route>
             <Route exact path='/staking1' element={< Staking1 />}></Route>

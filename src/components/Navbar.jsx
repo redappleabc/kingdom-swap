@@ -13,7 +13,7 @@ const NavbarItem = ({ title, classProps }) => {
     if (title == "Home") link="";
     return (
         <li className={`mx-4 cursor-pointer ${classProps}`}>
-            <a href={"/" + link}>{title}</a>
+            <Link to={"/" + link}>{title}</Link>
         </li>
     );
 }
@@ -45,6 +45,7 @@ const Navbar = () => {
                 {["Home","Staking1", "Staking2", "Exchange", "Real Estate"].map((item, index) => (
                     <NavbarItem key={item + index} title={item} />
                 ))}
+            
                 <button
                         type="button"
                         onClick={toggleWallet}
@@ -55,7 +56,7 @@ const Navbar = () => {
                         <p className="text-black text-base font-semibold">
                             {putWalletAddress()}
                         </p>
-                    </button>
+                </button>
                     
             </ul>
             <div className='flex relative'>
