@@ -12,24 +12,13 @@ export default function Stanking2() {
         setAddNewAnnouncementState(!addNewAnnouncementState);
     }
     
-    const stakeInput = (e) => {
-        setStakeAmount(e.target.value);
-    }
 
     const confirmStaking = () => {
         console.log(stakeAmount);
     }
 
-    const unStakeInput = (e) => {
-        setUnStakeAmount(e.target.value);
-    }
-
     const confirmUnStaking = () => {
         console.log(unStakeAmount);
-    }
-
-    const withdrawInput = (e) => {
-        setWithdrawAmount(e.target.value);
     }
 
     const confirmWithdraw = () => {
@@ -47,7 +36,7 @@ export default function Stanking2() {
                                 <div>
                                     <div className='staking-con-main-sec'>
                                         <span className='staking-main-text'>Total Staking Amount</span>
-                                        <span className='staking-sub-text'>10,000 KST</span>
+                                        <span className='staking-sub-text'>10,000  $KS2</span>
                                     </div>
                                     <div className='staking-con-main-sec'>
                                         <span className='staking-main-text'>APY</span>
@@ -57,11 +46,11 @@ export default function Stanking2() {
                                 <div>
                                     <div className='staking-con-main-sec'>
                                         <span className='staking-main-text'>Your Staking Amount</span>
-                                        <span className='staking-sub-text'>100 KST</span>
+                                        <span className='staking-sub-text'>100  $KS2</span>
                                     </div>
                                     <div className='staking-con-main-sec'>
                                         <span className='staking-main-text'>Your Reward Amount</span>
-                                        <span className='staking-sub-text'>100 KST</span>
+                                        <span className='staking-sub-text'>100  $KS2</span>
                                     </div>
                                 </div>
                                 
@@ -69,11 +58,11 @@ export default function Stanking2() {
                             <div className='sec3'>
                                 <div>
                                     <div>
-                                        <input type="number" onChange={stakeInput} name="stake" id="" placeholder='0'/>
+                                        <input type="number" onChange={(e)=>{setStakeAmount(e.target.value);}} name="stake" id="" placeholder='0'/>
                                         <button className='staking-btn' onClick={confirmStaking}>Stake</button>
                                     </div>
                                     <div>
-                                        <input type="number" onChange={unStakeInput} name="unstake" id="" placeholder='0'/>
+                                        <input type="number" onChange={(e)=>{setUnStakeAmount(e.target.value);}} name="unstake" id="" placeholder='0'/>
                                         <button className='staking-btn' onClick={confirmUnStaking}>Unstake</button>
                                     </div>
                                 </div>
@@ -110,7 +99,7 @@ export default function Stanking2() {
                     <div className='vote-btn-con'>
                         <div className="yes-con input-con">
                             <div className='font-normal'>
-                                293 KST
+                                293 $veKS2
                             </div>
                             <div>
                                 <input type="number" placeholder='0'/>
@@ -119,7 +108,7 @@ export default function Stanking2() {
                         </div>
                         <div className="no-con input-con">
                             <div className='font-normal'>
-                                132 KST
+                                132 $veKS2
                             </div>
                             <div>
                                 <input type="number" placeholder='0' />
@@ -188,12 +177,12 @@ export default function Stanking2() {
                 <div className='vote-btn-con'>
                     <div className="yes-con input-con">
                         <div className='font-normal'>
-                            293 KST
+                            293 $veKS2
                         </div>
                     </div>
                     <div className="no-con input-con">
                         <div className='font-normal'>
-                            132 KST
+                            132 $veKS2
                         </div>
                     </div>
                     <div>
