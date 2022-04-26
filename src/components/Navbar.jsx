@@ -31,6 +31,7 @@ const Navbar = () => {
     const toggleWallet = async () => {
         if (walletAddress == "Connect Wallet" ) {
             await connectWallet();
+            // if(getCurrentAccount()!="Connect Wallet") setWalletAddress("");
             setWalletAddress("");
         }
         else {setWalletAddress("Connect Wallet"); setCurrentAccount("")}

@@ -4,8 +4,14 @@ import cup1 from '../../images/staking/cup-gold.png';
 export default function Stanking2() {
     const [stakeAmount, setStakeAmount] = useState("");
     const [unStakeAmount, setUnStakeAmount] = useState("");
-    const [withdrawAmount, setWithdrawAmount] = useState("")
+    const [withdrawAmount, setWithdrawAmount] = useState("");
+    const [addNewAnnouncementState, setAddNewAnnouncementState ] = useState(false);
 
+
+    const toggleAddNewAnnouncement = () => {
+        setAddNewAnnouncementState(!addNewAnnouncementState);
+    }
+    
     const stakeInput = (e) => {
         setStakeAmount(e.target.value);
     }
@@ -72,12 +78,126 @@ export default function Stanking2() {
                                     </div>
                                 </div>
                                 <div>
-                                    <input type="number" name="withdraw" onChange={withdrawInput} id="withdraw" placeholder='0'/>
                                     <button className='staking-btn' onClick={confirmWithdraw}>Withdraw</button>
                                 </div>
                             
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div className="vote-container user-vote">
+            <div className="vote-header">
+                Welcome! Please vote here.
+            </div>
+            <div className="vote-con-main">
+                <div className="vote-con-header">
+                    <div>
+                        Announcement
+                    </div>
+                    <div>
+                        YES
+                    </div>
+                    <div>
+                        NO
+                    </div>
+                </div>
+                <div className="vote-con-list">
+                    <div className="vote-des">
+                      test test test test test test test test test test test test test test test test test test test test test test test
+                    </div>
+                    <div className='vote-btn-con'>
+                        <div className="yes-con input-con">
+                            <div className='font-normal'>
+                                293 KST
+                            </div>
+                            <div>
+                                <input type="number" placeholder='0'/>
+                                <button className='staking-btn'>Yes</button>
+                            </div>
+                        </div>
+                        <div className="no-con input-con">
+                            <div className='font-normal'>
+                                132 KST
+                            </div>
+                            <div>
+                                <input type="number" placeholder='0' />
+                                <button className='staking-btn btn-no'>No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="vote-header vote-sub-title font-subtitle">
+                  Closed Announcement
+                </div>
+                <div className="vote-con-list">
+                    <div className="vote-des closed-des">
+                      test test test test test test test test test test test test test test test test test test test test test test test
+                    </div>
+                    <div className='vote-btn-con font-normal'>
+                        2022.03.22 closed.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div className="vote-container user-vote">
+            <div className="vote-header">
+                Please Edit Announcement.
+            </div>
+            <div className="add-new-btn">
+                <button className='staking-btn' onClick={toggleAddNewAnnouncement}>{addNewAnnouncementState?"Close":"Add New"}</button>
+            </div>
+            <div className={`add-new-con ${addNewAnnouncementState ? "active":""}`}>
+                <div className="vote-con-list vote-add-new-con">
+                    <textarea placeholder='Type announcement here'></textarea>
+                    <div className='vote-add-new-input-con'>
+                        <div>
+                            <span htmlFor="">Start Date</span>
+                            <input type="date" name="" id="" />
+                        </div>
+                        <div>
+                            <span htmlFor="">Close Date</span>
+                                <input type="date" name="" id="" />
+                            </div>
+                        <div>
+                            <button className='staking-btn'>Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="vote-con-header vote-edit-header">
+                    <div>
+                        Announcement
+                    </div>
+                    <div>
+                        YES
+                    </div>
+                    <div>
+                        NO
+                    </div>
+                    <div>
+                        Edit
+                    </div>
+                </div>
+            <div className="vote-con-list vote-edit-list">
+                <div className="vote-des">
+                    test test test test test test test test test test test test test test test test test test test test test test test
+                </div>
+                <div className='vote-btn-con'>
+                    <div className="yes-con input-con">
+                        <div className='font-normal'>
+                            293 KST
+                        </div>
+                    </div>
+                    <div className="no-con input-con">
+                        <div className='font-normal'>
+                            132 KST
+                        </div>
+                    </div>
+                    <div>
+                        <button className='staking-btn'>Close</button>
                     </div>
                 </div>
             </div>

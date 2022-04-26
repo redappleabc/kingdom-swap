@@ -500,7 +500,8 @@ input:focus {
 
 .add-new-btn {
   text-align: right;
-  margin-top: 30px
+  margin-top: 30px;
+  margin-right: 20px;
 }
 .add-new-btn button {
   width: 120px;
@@ -590,4 +591,22 @@ textarea {
 
 .vote-add-new-con {
   /* align-items: flex-end; */
+}
+
+@media (max-width: 580px) {
+  .add-new-con textarea {
+    width: 100%;
+  }
+  .add-new-con.active {
+    height: 245px;
+  }
+  .vote-add-new-input-con {
+    margin-top: 20px;
+  }
+  .vote-edit-list .vote-des {
+    width: 100%;
+  }
+  .vote-edit-list .vote-btn-con {
+    width: 100%;
+  }
 }
