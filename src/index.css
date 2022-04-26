@@ -355,3 +355,239 @@ input:focus {
 .wallet-btn {
   width: 150px;
 }
+
+/* vote  */
+
+.vote-container {
+  width: 900px;
+  height: auto;
+  padding-bottom: 50px;
+  margin: auto;
+}
+
+.vote-header {
+  font-size: 36px;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.vote-con-header {
+  display: flex;
+  color: white;
+  font-size: 20px;
+  justify-content: space-between;
+  text-align: center;
+  border-bottom: 1px solid white;
+  margin-top: 30px;
+  padding: 20px 15px;
+}
+.vote-con-header>div:first-child {
+  width: 65%;
+}
+.vote-con-header>div:nth-child(2) {
+  width: 15%;
+  color: green;
+}
+.vote-con-header>div:nth-child(3) {
+  width: 15%;
+  color: red;
+}
+.vote-con-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 15px;
+  border-bottom: 1px dotted #4B4B4E;
+}
+.vote-btn-con {
+  width: 33%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.vote-des {
+  width: 65%;
+  height: auto;
+  color: white;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 5px;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: .4s ease;
+}
+.vote-des:hover {
+  opacity: .8;
+}
+.vote-btn-con .input-con>div:first-child {
+  text-align: center;
+  color: white;
+  margin-bottom: 10px;
+  width: 100%;
+}
+.vote-btn-con .input-con>div:nth-child(2) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.input-con input {
+  background: #28282D;
+    border-radius: 8px;
+    border: none;
+    height: 40px;
+    padding: 10px 13px;
+    color: white;
+    font-size: 14px;
+    font-family: "Open Sans", sans-serif;
+    width: 50%;
+}
+
+.vote-con-list .input-con {
+  width: 45%;
+}
+
+.vote-con-list button {
+  width: 40%;
+  height: 35px;
+  border-radius: 5px;
+}
+.btn-no {
+  background-color: red;
+}
+.btn-yes {
+  background-color: green;
+}
+.font-subtitle {
+  font-size: 24px;
+}
+.font-normal {
+  color: #7F7F83;
+  font-size: 18px;
+}
+.vote-sub-title {
+  margin-top: 20px;
+}
+.closed-des {
+  border: none;
+  opacity: .6;
+}
+.closed-des:hover {
+  opacity: .6;
+}
+@media (max-width: 900px) {
+  .vote-container {
+    width: 90%;
+  }
+}
+@media (max-width: 580px) {
+  .vote-con-list {
+    display: block;
+  }
+  .vote-con-list>div {
+    width: 100%;
+  }
+  .vote-btn-con {
+    margin-top: 15px;
+  }
+  .vote-con-header {
+    display: none;
+  }
+}
+
+.add-new-btn {
+  text-align: right;
+  margin-top: 30px
+}
+.add-new-btn button {
+  width: 120px;
+  height: 40px;
+}
+.add-new-con {
+  height: 0;
+  overflow: hidden;
+  transition: .3s ease;
+}
+.add-new-con.active {
+  height: 155px;
+}
+
+.vote-edit-header>div:first-child {
+  width: 50%;
+}
+.vote-edit-header>div:nth-child(2), .vote-edit-header>div:nth-child(3), .vote-edit-header>div:nth-child(4) {
+  width: 15%;
+}
+
+.vote-edit-list .vote-des {
+  width: 50%;
+}
+
+.vote-edit-list .vote-btn-con {
+  width: 48%;
+}
+.vote-edit-list .vote-btn-con>div {
+  width: 31%;
+  text-align: center;
+}
+.vote-edit-list button {
+  width: 70%;
+  margin: auto;
+}
+
+textarea {
+  background-color: #222222;
+  color: white;
+  padding: 15px;
+  width: 50%;
+  height: 100%;
+  resize: none;
+  border: 1px solid white;
+  border-radius: 5px;
+  /* background-color: #4B4B4E; */
+}
+
+.vote-add-new-input-con>div span {
+  display: block;
+  color: white;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.vote-add-new-input-con {
+  width: 48%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.vote-add-new-input-con>div {
+  width: 31%;
+}
+
+.vote-add-new-input-con input {
+  width: 100%;
+  height: 40px;
+  background-color: #4B4B4E;
+  color: white;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.vote-add-new-input-con>div>button {
+  width: 80%;
+  height: 40px;
+  margin: auto;
+  margin-bottom: 0;
+}
+
+.vote-add-new-input-con>div:nth-child(3) {
+  text-align: right;
+}
+
+.vote-add-new-con {
+  /* align-items: flex-end; */
+}
