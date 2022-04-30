@@ -24,9 +24,9 @@ contract LPFarming is Ownable {
 
     mapping(address => uint) public latestStakingTime;
 
-    event Staked( address indexed ,uint256 _amount);
-    event UnStaked( address indexed ,uint256 _amount);
-    event Withdrawed( address indexed ,uint256 _amount);
+    event Staked( address indexed _from, uint256 _amount);
+    event UnStaked( address indexed _from, uint256 _amount);
+    event Withdrawed( address indexed _from, uint256 _amount);
 
 
     constructor(ERC20 _reflectionTokenAddress, ERC20 _farmingTokenAddress) payable {
@@ -103,5 +103,8 @@ contract LPFarming is Ownable {
     function getRewards() public view returns(uint256) {
         return rewardsBalance[msg.sender] + getCurrentRewards();
     }
+
+
+    
 
 }
