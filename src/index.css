@@ -665,4 +665,18 @@ textarea {
   ._sp {
     display: block;
   }
+  span._sp {
+    display: inline-block;
+  }
+  .vote-date-con {
+    margin-top: 10px;
+  }
+  .closed-poll-con-list .vote-date-con {
+    margin-top: 0;
+  }
+}
+
+
+.nav-list.active, .nav-list:hover {
+  border-bottom: 2px solid white;
 }

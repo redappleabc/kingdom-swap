@@ -130,6 +130,10 @@ export default function Stanking1() {
             console.log(res);
         })
     }
+
+    useEffect(() => {
+        document.getElementById("navStaking1").classList.add("active");
+    }, [])
     
     return(
     <>

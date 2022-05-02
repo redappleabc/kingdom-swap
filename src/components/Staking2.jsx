@@ -74,10 +74,10 @@ export default function Stanking2() {
                 </div>
                 <div className="vote-date-con">
                     <div>
-                        <span className="_sp inline-block">Start date: </span> 2022.01.01
+                        <span className="_sp">Start date: </span> 2022.01.01
                     </div>
                     <div>
-                        <span className="_sp inline-block">End date: </span> 2022.01.10
+                        <span className="_sp">End date: </span> 2022.01.10
                     </div>
                 </div>
             </div>
@@ -112,10 +112,10 @@ export default function Stanking2() {
                     </div>
                     <div className="vote-date-con">
                         <div>
-                            <span className="_sp inline-block">Start date: </span> 2022.01.01
+                            <span className="_sp">Start date: </span> 2022.01.01
                         </div>
                         <div>
-                            <span className="_sp inline-block">End date: </span> 2022.01.10
+                            <span className="_sp">End date: </span> 2022.01.10
                         </div>
                     </div>
                 </div>
@@ -406,6 +406,10 @@ export default function Stanking2() {
                 console.log(res);
             })
     }
+
+    useEffect(() => {
+        document.getElementById("navStaking2").classList.add("active");
+    }, [])
 
 
     return (

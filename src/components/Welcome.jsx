@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { AiFillPlayCircle } from "react-icons/ai";
 import { SiBinance } from "react-icons/si";
 import { BsInfoCircle } from "react-icons/bs";
@@ -125,6 +125,10 @@ const Welcome = () => {
         setAmount(60 * myJson.data.price_BNB);
         setPrice(60);
     }
+
+    useEffect(() => {
+        document.getElementById("navHome").classList.add("active");
+    }, [])
 
     return (
         <div>

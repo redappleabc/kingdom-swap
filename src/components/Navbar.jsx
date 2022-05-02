@@ -7,12 +7,18 @@ import { TransactionContext } from '../context/TransactionContext';
 import { Link } from 'react-router-dom';
 
 import logo from '../../images/logo.png';
-
+const navActive = (id) => {
+    let nav = document.getElementsByClassName("nav-list");
+    for (let i = 0; i<nav.length; i++) {
+        nav[i].classList.remove("active")
+    }
+    document.getElementById(id).classList.add("active")
+}
 const NavbarItem = ({ title, classProps }) => {
     let link = title.toLowerCase();
     if (title == "Home") link="";
     return (
-        <li className={`mx-4 cursor-pointer ${classProps}`}>
+        <li className={`mx-4 cursor-pointer ${classProps} nav-list ${title}`} id={"nav" + title} onClick={() => {navActive("nav" + title)}}>
             <Link to={"/" + link}>{title}</Link>
         </li>
     );
@@ -43,9 +49,9 @@ const Navbar = () => {
                 <a href="https://kingdom-swap.com/" target="_blank"><img src={logo} alt="logo" className="w-32 cursor-pointer" /></a>
             </div>
             <ul className="text-white md:flex hidden list-none flex-row justify-between items-center flex-initial">
-                {["Home","Staking1", "Staking2", "Exchange", "Real Estate"].map((item, index) => (
-                    <NavbarItem key={item + index} title={item} />
-                ))}
+            {["Home", "Staking1", "Staking2", "Exchange", "Real Estate"].map((item, index) => (
+                <NavbarItem key={item + index} title={item} classProps="my-2 text-lg" onClick={() => {navActive(navId)}}/>
+            ))}
             
                 <button
                         type="button"
