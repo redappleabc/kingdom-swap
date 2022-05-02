@@ -74,10 +74,10 @@ export default function Stanking2() {
                 </div>
                 <div className="vote-date-con">
                     <div>
-                        <span className="_sp">Start date: </span> 2022.01.01
+                        <span className="_sp">Start date: </span> {startTime}
                     </div>
                     <div>
-                        <span className="_sp">End date: </span> 2022.01.10
+                        <span className="_sp">End date: </span> {endTime}
                     </div>
                 </div>
             </div>
@@ -85,7 +85,7 @@ export default function Stanking2() {
     }
 
     const ClosedPoll = (props) => {
-        const { pollId, nbYesCnt, nbNoCnt,  selfYesCnt, selfNoCnt } = props;
+        const { pollId, nbYesCnt, nbNoCnt,  selfYesCnt, selfNoCnt , startTime, endTime} = props;
         return (
             <>
                 <div className="vote-con-list closed-poll-con-list">
@@ -112,10 +112,10 @@ export default function Stanking2() {
                     </div>
                     <div className="vote-date-con">
                         <div>
-                            <span className="_sp">Start date: </span> 2022.01.01
+                            <span className="_sp">Start date: </span> {startTime}
                         </div>
                         <div>
-                            <span className="_sp">End date: </span> 2022.01.10
+                            <span className="_sp">End date: </span> {endTime}
                         </div>
                     </div>
                 </div>
@@ -227,8 +227,8 @@ export default function Stanking2() {
             pollData.pollId = _pollId;
             pollData.totalYesCnt = _vote[0].toString();
             pollData.totalNoCnt = _vote[1].toString();
-            pollData.startTime = _vote[2].toString();
-            pollData.endTime = _vote[3].toString();
+            pollData.startTime = (new Date(_vote[2].toString()*1000)).toLocaleDateString();
+            pollData.endTime = (new Date(_vote[3].toString()*1000)).toLocaleDateString();
             pollData.selfYesCnt = _selfYesVoteCnt.toString();
             pollData.selfNoCnt = _selfNoVoteCnt.toString();
             pollData.isPollClosed = _isPollClosed;
@@ -301,7 +301,7 @@ export default function Stanking2() {
         if(newPollEndDate == ""){
             newPollEndDateSeconds = 0;
         }else{
-            newPollEndDateSeconds = Date.parse((new Date(newPollEndDate)).toUTCString()) / 1000
+            newPollEndDateSeconds = (Date.parse((new Date(newPollEndDate)).toUTCString()) + (3600 * 1000 * 24)) / 1000
         }
          
         console.log(newPollId)
@@ -499,7 +499,7 @@ export default function Stanking2() {
                     </div>
 
                     {closedPollData.map((pollData) => (
-                        <ClosedPoll pollId={pollData.pollId} nbYesCnt={pollData.totalYesCnt} nbNoCnt={pollData.totalNoCnt}  selfYesCnt = {pollData.selfYesCnt} selfNoCnt ={pollData.selfNoCnt} key={pollData.pollId} />
+                        <ClosedPoll pollId={pollData.pollId} nbYesCnt={pollData.totalYesCnt} nbNoCnt={pollData.totalNoCnt}  selfYesCnt = {pollData.selfYesCnt} selfNoCnt ={pollData.selfNoCnt} startTime = {pollData.startTime} endTime={pollData.endTime} key={pollData.pollId} />
                     ))}
 
                 </div>
