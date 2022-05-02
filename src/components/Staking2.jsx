@@ -228,7 +228,12 @@ export default function Stanking2() {
             pollData.totalYesCnt = _vote[0].toString();
             pollData.totalNoCnt = _vote[1].toString();
             pollData.startTime = (new Date(_vote[2].toString()*1000)).toLocaleDateString();
-            pollData.endTime = (new Date(_vote[3].toString()*1000)).toLocaleDateString();
+            if(_vote[3].toString() == "0"){
+                pollData.endTime = "UnSet"
+            }else{
+                pollData.endTime = (new Date(_vote[3].toString()*1000 - 3600*24*1000)).toLocaleDateString();
+            }
+            
             pollData.selfYesCnt = _selfYesVoteCnt.toString();
             pollData.selfNoCnt = _selfNoVoteCnt.toString();
             pollData.isPollClosed = _isPollClosed;
