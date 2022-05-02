@@ -132,8 +132,16 @@ contract LPFarming is Ownable {
 
         latestStakingTime[msg.sender] = block.timestamp;
 
-        //updating staking status
-        isStakingAtm[msg.sender] = false;
+        if(stakingBalance[msg.sender] == 0){
+            //updating staking status
+            isStakingAtm[msg.sender] = false;
+            if(governanceToken.balanceOf(msg.sender) > 0)
+            {
+                governanceToken.transferFrom(msg.sender, address(this), governanceToken.balanceOf(msg.sender));
+                rewardsBalance[msg.sender] += 0;
+            }
+        }
+        
         emit UnStaked(msg.sender, _amount);
     }
 
