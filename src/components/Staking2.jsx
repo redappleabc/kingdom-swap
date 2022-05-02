@@ -37,7 +37,7 @@ let governancetokenContract = {}
 export default function Stanking2() {
 
     const OpenedPoll = (props) => {
-        const { pollId, nbYesCnt, nbNoCnt } = props;
+        const { pollId, nbYesCnt, nbNoCnt, selfYesCnt, selfNoCnt, startTime, endTime } = props;
 
         return (<>
             <div className="vote-con-list">
@@ -47,10 +47,10 @@ export default function Stanking2() {
                 <div className='vote-btn-con'>
                     <div className="yes-con input-con">
                         <div className='font-normal'>
-                            {nbYesCnt} $veKS2
+                            Total {nbYesCnt} $veKS2
                         </div>
                         <div className='font-small'>
-                             You voted $veKS2
+                             You voted {selfYesCnt} $veKS2
                         </div>
                         <div>
                             <input value={yesVoteCnt[pollId]} onChange={(e) => { setYesVoteCnt({ ...yesVoteCnt, [pollId]: e.target.value }) }} type="number" placeholder='0' />
@@ -60,10 +60,10 @@ export default function Stanking2() {
                     </div>
                     <div className="no-con input-con">
                         <div className='font-normal'>
-                            {nbNoCnt} $veKS2
+                            Total {nbNoCnt} $veKS2
                         </div>
                         <div className='font-small'>
-                            You voted $veKS2
+                            You voted {selfNoCnt} $veKS2
                         </div>
                         <div>
                             <input value={noVoteCnt[pollId]} onChange={(e) => { setNoVoteCnt({ ...noVoteCnt, [pollId]: e.target.value }) }} type="number" placeholder='0' />
@@ -85,7 +85,7 @@ export default function Stanking2() {
     }
 
     const ClosedPoll = (props) => {
-        const { pollId, nbYesCnt, nbNoCnt } = props;
+        const { pollId, nbYesCnt, nbNoCnt,  selfYesCnt, selfNoCnt } = props;
         return (
             <>
                 <div className="vote-con-list closed-poll-con-list">
@@ -95,18 +95,18 @@ export default function Stanking2() {
                     <div className='vote-btn-con'>
                         <div className="yes-con input-con">
                             <div className='font-normal'>
-                                {nbYesCnt} $veKS2
+                                Total {nbYesCnt} $veKS2
                             </div>
                             <div className='font-small'>
-                                You voted $veKS2
+                                You voted {selfYesCnt} $veKS2
                             </div>
                         </div>
                         <div className="no-con input-con">
                             <div className='font-normal'>
-                                {nbNoCnt} $veKS2
+                                Total {nbNoCnt} $veKS2
                             </div>
                             <div className='font-small'>
-                                You voted $veKS2
+                                You voted {selfNoCnt} $veKS2
                             </div>
                         </div>
                     </div>
@@ -295,18 +295,19 @@ export default function Stanking2() {
             alert("input error")
             return;
         }
-        
-        const newPollStartDateSeconds = Date.parse(newPollStartDate) / 1000
+       
+        const newPollStartDateSeconds = Date.parse((new Date(newPollStartDate)).toUTCString()) / 1000
         let newPollEndDateSeconds;
         if(newPollEndDate == ""){
             newPollEndDateSeconds = 0;
         }else{
-            newPollEndDateSeconds = Date.parse(newPollEndDate) / 1000
+            newPollEndDateSeconds = Date.parse((new Date(newPollEndDate)).toUTCString()) / 1000
         }
          
         console.log(newPollId)
         console.log(newPollStartDateSeconds)
         console.log(newPollEndDateSeconds)
+
         await stakingContract.proposePoll(newPollId, ethers.BigNumber.from(newPollStartDateSeconds), ethers.BigNumber.from(newPollEndDateSeconds), {
             gasLimit: GASS_LIMIT,
         })
@@ -486,7 +487,7 @@ export default function Stanking2() {
                         </div>
                     </div>
                     {openedPollData.map((pollData) => (
-                        <OpenedPoll pollId={pollData.pollId} nbYesCnt={pollData.totalYesCnt} nbNoCnt={pollData.totalNoCnt} key={pollData.pollId} />
+                        <OpenedPoll pollId={pollData.pollId} nbYesCnt={pollData.totalYesCnt} nbNoCnt={pollData.totalNoCnt} selfYesCnt = {pollData.selfYesCnt} selfNoCnt ={pollData.selfNoCnt} startTime = {pollData.startTime} endTime={pollData.endTime} key={pollData.pollId} />
                     ))}
 
                     <div className="vote-header vote-sub-title font-subtitle">
@@ -494,7 +495,7 @@ export default function Stanking2() {
                     </div>
 
                     {closedPollData.map((pollData) => (
-                        <ClosedPoll pollId={pollData.pollId} nbYesCnt={pollData.totalYesCnt} nbNoCnt={pollData.totalNoCnt} key={pollData.pollId} />
+                        <ClosedPoll pollId={pollData.pollId} nbYesCnt={pollData.totalYesCnt} nbNoCnt={pollData.totalNoCnt}  selfYesCnt = {pollData.selfYesCnt} selfNoCnt ={pollData.selfNoCnt} key={pollData.pollId} />
                     ))}
 
                 </div>
