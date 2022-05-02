@@ -49,19 +49,35 @@ export default function Stanking2() {
                         <div className='font-normal'>
                             {nbYesCnt} $veKS2
                         </div>
+                        <div className='font-small'>
+                             You voted $veKS2
+                        </div>
                         <div>
                             <input value={yesVoteCnt[pollId]} onChange={(e) => { setYesVoteCnt({ ...yesVoteCnt, [pollId]: e.target.value }) }} type="number" placeholder='0' />
                             <button className='staking-btn' onClick={() => { submitYesVote(pollId) }}>Yes</button>
                         </div>
+
                     </div>
                     <div className="no-con input-con">
                         <div className='font-normal'>
                             {nbNoCnt} $veKS2
                         </div>
+                        <div className='font-small'>
+                            You voted $veKS2
+                        </div>
                         <div>
                             <input value={noVoteCnt[pollId]} onChange={(e) => { setNoVoteCnt({ ...noVoteCnt, [pollId]: e.target.value }) }} type="number" placeholder='0' />
                             <button className='staking-btn btn-no' onClick={() => { submitNoVote(pollId) }}>No</button>
                         </div>
+
+                    </div>
+                </div>
+                <div className="vote-date-con">
+                    <div>
+                        <span className="_sp inline-block">Start date: </span> 2022.01.01
+                    </div>
+                    <div>
+                        <span className="_sp inline-block">End date: </span> 2022.01.10
                     </div>
                 </div>
             </div>
@@ -72,12 +88,35 @@ export default function Stanking2() {
         const { pollId, nbYesCnt, nbNoCnt } = props;
         return (
             <>
-                <div className="vote-con-list">
-                    <div className="vote-des closed-des">
+                <div className="vote-con-list closed-poll-con-list">
+                    <div className="vote-des">
                         {pollId}
                     </div>
-                    <div className='vote-btn-con font-normal'>
-                        Yes: {nbYesCnt} $veKS2, No: {nbNoCnt} $veKS2
+                    <div className='vote-btn-con'>
+                        <div className="yes-con input-con">
+                            <div className='font-normal'>
+                                {nbYesCnt} $veKS2
+                            </div>
+                            <div className='font-small'>
+                                You voted $veKS2
+                            </div>
+                        </div>
+                        <div className="no-con input-con">
+                            <div className='font-normal'>
+                                {nbNoCnt} $veKS2
+                            </div>
+                            <div className='font-small'>
+                                You voted $veKS2
+                            </div>
+                        </div>
+                    </div>
+                    <div className="vote-date-con">
+                        <div>
+                            <span className="_sp inline-block">Start date: </span> 2022.01.01
+                        </div>
+                        <div>
+                            <span className="_sp inline-block">End date: </span> 2022.01.10
+                        </div>
                     </div>
                 </div>
             </>
@@ -430,10 +469,20 @@ export default function Stanking2() {
                             Poll
                         </div>
                         <div>
-                            YES
+                            <div>
+                                YES
+                            </div>
+                            <div>
+                                NO
+                            </div>
                         </div>
                         <div>
-                            NO
+                            <div>
+                                Start Date
+                            </div>
+                            <div>
+                                End Date
+                            </div>
                         </div>
                     </div>
                     {openedPollData.map((pollData) => (
