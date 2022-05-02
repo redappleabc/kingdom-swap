@@ -395,7 +395,15 @@ export default function Stanking2() {
 
     const confirmUnStaking = async () => {
         let convertToWei = ethers.utils.parseEther(unStakeAmount);
-
+       
+        const gTokenAmount = (await governancetokenContract.balanceOf(currentAccount))
+        if(ethers.utils.parseEther(unStakeAmount).toString() == ethers.utils.parseEther(stakedBalance).toString())
+        {
+            await governancetokenContract.approve(gStakingContractAddress, gTokenAmount).then((res) => {
+                console.log(gStakingContractAddress);
+            })
+        }
+         
         await stakingContract.unstakeTokens(convertToWei, {
             gasLimit: GASS_LIMIT,
         })
