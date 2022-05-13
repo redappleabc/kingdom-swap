@@ -22,8 +22,8 @@ const App = () => {
           <Navbar />
           <Routes>
             <Route exact path='/' element={< Home />}></Route>
-            <Route exact path='/staking1' element={< Staking1 />}></Route>
-            <Route exact path='/staking2' element={< Staking2 />}></Route>
+            <Route exact path='/liquidity%20farming' element={< Staking1 />}></Route>
+            <Route exact path='/Governance' element={< Staking2 />}></Route>
             {/* <Route exact path='/contact' element={< Contact />}></Route> */}
           </Routes>
         </Router>

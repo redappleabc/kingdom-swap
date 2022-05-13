@@ -19,7 +19,7 @@ const NavbarItem = ({ title, classProps }) => {
     if (title == "Home") link="";
     return (
         <li className={`mx-4 cursor-pointer ${classProps} nav-list ${title}`} id={"nav" + title} onClick={() => {navActive("nav" + title)}}>
-            <Link to={"/" + link}>{title}</Link>
+            <Link to={"/" + link} >{title}</Link>
         </li>
     );
 }
@@ -49,9 +49,12 @@ const Navbar = () => {
                 <a href="https://kingdom-swap.com/" target="_blank"><img src={logo} alt="logo" className="w-32 cursor-pointer" /></a>
             </div>
             <ul className="text-white md:flex hidden list-none flex-row justify-between items-center flex-initial">
-            {["Home", "Staking1", "Staking2", "Exchange", "Real Estate"].map((item, index) => (
+            {["Home", "Liquidity Farming", "Governance", /*"Exchange",*/].map((item, index) => (
                 <NavbarItem key={item + index} title={item} classProps="my-2 text-lg" onClick={() => {navActive(navId)}}/>
             ))}
+            <li className={`mx-4 cursor-pointer my-2 text-lg`}>
+                Real Estate
+            </li>
             
                 <button
                         type="button"
@@ -78,9 +81,12 @@ const Navbar = () => {
                         <li className="text-xl w-full my-2">
                             <AiOutlineClose onClick={() => setToggleMenu(false)} />
                         </li>
-                        {["Home", "Staking1", "Staking2", "Exchange", "Real Estate"].map((item, index) => (
+                        {["Home", "Liquidity Farming", "Governance", /*"Exchange",*/].map((item, index) => (
                             <NavbarItem key={item + index} title={item} classProps="my-2 text-lg"/>
                         ))}
+                        <li className={`mx-4 cursor-pointer my-2 text-lg`}>
+                            Real Estate
+                        </li>
                     </ul>
                 )}
             </div>

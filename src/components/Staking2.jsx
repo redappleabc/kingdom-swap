@@ -422,7 +422,7 @@ export default function Stanking2() {
     }
 
     useEffect(() => {
-        document.getElementById("navStaking2").classList.add("active");
+        document.getElementById("navGovernance").classList.add("active");
     }, [])
 
 

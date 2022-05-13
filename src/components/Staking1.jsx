@@ -132,7 +132,7 @@ export default function Stanking1() {
     }
 
     useEffect(() => {
-        document.getElementById("navStaking1").classList.add("active");
+        document.getElementById("navLiquidity Farming").classList.add("active");
     }, [])
     
     return(
