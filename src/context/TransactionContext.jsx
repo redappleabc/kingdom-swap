@@ -38,8 +38,8 @@ export const TransactionProvider = ({ children }) => {
           
             const networkId = await ethereum.request({method: "net_version"});
             console.log(networkId);
-            if (networkId != 3) {
-                alert("Change to Ropsten network!");
+            if (networkId != 56) {
+                alert("Change to BSC network!");
             }
             else {
                 const accounts = await ethereum.request({method: 'eth_requestAccounts'});
