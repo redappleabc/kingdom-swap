@@ -80,7 +80,7 @@ contract GovernanceStaking is Ownable {
     constructor(ERC20 _governanceTokenAddress, ERC20 _farmingTokenAddress) payable {
         governanceToken = _governanceTokenAddress;
         farmingToken = _farmingTokenAddress;
-        annualTotalSupply = uint256(1000 * (10 ** governanceToken.decimals()));
+        annualTotalSupply = uint256(10000000 * (10 ** governanceToken.decimals()));
     }
 
 
