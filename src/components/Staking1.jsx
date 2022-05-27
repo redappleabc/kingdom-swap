@@ -169,16 +169,16 @@ export default function Stanking1() {
                                 <div>
                                     <div>
                                         <input type="number" value={stakeAmount}  onChange={(e)=>{setStakeAmount(e.target.value)}} name="stake" id="" placeholder='0'/>
-                                        <button className='staking-btn' onClick={confirmStaking}>Stake</button>
+                                        <button className='staking-btn' disabled = {true} onClick={confirmStaking}>Stake</button>
                                     </div>
                                     <div>
                                         <input type="number" value={unStakeAmount } onChange={(e)=>{ setUnStakeAmount(e.target.value)}} name="unstake" id="" placeholder='0'/>
-                                        <button className='staking-btn' onClick={confirmUnStaking}>Unstake</button>
+                                        <button className='staking-btn' disabled = {true} onClick={confirmUnStaking}>Unstake</button>
                                     </div>
                                 </div>
                                 <div>
                                     {/* <input type="number" name="withdraw" onChange={withdrawInput} id="withdraw" placeholder='0'/> */}
-                                    <button className='staking-btn' onClick={confirmWithdraw}>Withdraw</button>
+                                    <button className='staking-btn' disabled = {true} onClick={confirmWithdraw}>Withdraw</button>
                                 </div>
                             
                             </div>
