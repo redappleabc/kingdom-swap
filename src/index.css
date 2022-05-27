@@ -270,6 +270,30 @@ body {
 .sec3>div:first-child>div {
   width: 48%;
 }
+
+
+.staking-btn:disabled {
+  background-color: #494949;
+  height: 50px;
+  border-radius: 25px;
+  /* border: 2px solid #f7be2f; */
+  color: #101016;
+  font-size: 16px;
+  font-weight: 600;
+  width: 100%;
+  font-family: 'Poppins' !important;
+  cursor: pointer;
+  /* transition: .4s ease; */
+  font-family: "Open Sans", sans-serif !important;
+}
+
+.staking-btn:hover:disabled {
+  background-color: #494949;
+  color: #101016;
+}
+
+
+
 .staking-btn {
   background-color: #f7be2f;
   height: 50px;
