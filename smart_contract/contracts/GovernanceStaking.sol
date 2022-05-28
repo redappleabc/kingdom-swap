@@ -150,7 +150,7 @@ contract GovernanceStaking is Ownable {
     // @dev user stake tokens
     function stakeTokens(uint256 _amount) public {
         //Staking amount must be more than 0
-        require(_amount > 0);
+        require(_amount > 0, "amount must be more than 0");
         //User adding this farming tokens
         farmingToken.transferFrom(msg.sender, address(this), _amount);
 
@@ -234,7 +234,7 @@ contract GovernanceStaking is Ownable {
         uint256 balance = stakingBalance[msg.sender];   // get staking balance
         uint256 passedTime = block.timestamp - latestStakingTime[msg.sender];   // claculate passed time
         // calculate rewards amount for passed time based on annual total supply and total staked amount
-        uint256 rewards = annualTotalSupply * (balance / totalStaked) * (passedTime / uint256(365 days)) ;
+        uint256 rewards = annualTotalSupply * balance / totalStaked * passedTime / uint256(365 days) ;
         return rewards;
     }
 

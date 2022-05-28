@@ -191,6 +191,7 @@ export default function Stanking2() {
         const totalStakingBalance = ethers.utils.formatEther(await stakingContract.totalStaked());
         const annualTotalSupply = ethers.utils.formatEther(await stakingContract.annualTotalSupply());
         const rewardsAmount = ethers.utils.formatEther(await stakingContract.getRewards());
+        console.log(rewardsAmount)
 
         if (totalStakingBalance > 0)
             setApy(annualTotalSupply / totalStakingBalance * 100);

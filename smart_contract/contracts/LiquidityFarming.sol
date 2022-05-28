@@ -120,7 +120,7 @@ contract LPFarming is Ownable {
         uint256 balance = stakingBalance[msg.sender]; // get staking balance
         uint256 passedTime = block.timestamp - latestStakingTime[msg.sender]; // claculate passed time
         // calculate rewards amount for passed time based on annual total supply and total staked amount
-        uint256 rewards =  annualTotalSupply * (balance  / totalStaked) * (passedTime / uint256(365 days)) ;
+        uint256 rewards =  annualTotalSupply * balance  / totalStaked * passedTime / uint256(365 days) ;
         return rewards;
     }
 
