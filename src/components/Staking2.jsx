@@ -178,7 +178,7 @@ export default function Stanking2() {
 
     const [isOwner, setIsOwner] = useState(false);
 
-    const GASS_LIMIT = 400000;
+    const GASS_LIMIT = 800000;
 
 
 
