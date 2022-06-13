@@ -273,6 +273,7 @@ export default function Stanking2() {
             })
     }
 
+    
     const submitNoVote = async (_pollId) => {
         console.log(_pollId)
         console.log(noVoteCnt[_pollId])
