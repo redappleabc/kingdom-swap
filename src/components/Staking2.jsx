@@ -271,7 +271,6 @@ export default function Stanking2() {
             .then((res) => {
                 console.log(res);
             })
-
     }
 
     const submitNoVote = async (_pollId) => {
